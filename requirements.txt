@@ -1,0 +1,9 @@
+numpy==1.21.2
+pandas==1.4.1
+matplotlib==3.5.1
+seaborn==0.11.2
+scikit-learn==1.0.2
+scikit-image==0.18.3
+opencv-python==4.4.0
+torch==1.10.2
+torchvision==0.11.2
