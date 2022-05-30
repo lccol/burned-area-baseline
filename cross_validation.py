@@ -49,7 +49,6 @@ def main():
 
     master_folder = Path.home() / 'datasets' / 'burned_area_dataset' / 'sentinel-hub'
     csv_path = fold_definition
-    mask_intervals = [(0, 36), (37, 96), (97, 160), (161, 224), (225, 255)]
     # n_classes = 1 #len(mask_intervals)
     mask_one_hot = False
     only_burnt = True
@@ -73,15 +72,7 @@ def main():
     if not os.path.isdir(base_result_path):
         raise RuntimeError('Invalid base result path %s' % base_result_path)
         
-    result_path = base_result_path / 'unet_dice'
-    lr = 1e-4
-    mask_intervals = [(0, 36), (37, 96), (97, 160), (161, 224), (225, 255)]
-    product_list = ['sentinel2']
-    mode = 'post'
-    process_dict = {
-        'sentinel2': all_bands_selector,
-    }
-    n_channels = 12
+    
     print('##############################################################')
     print('RESULT PATH: %s' % result_path)
     print('##############################################################')
