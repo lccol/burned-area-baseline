@@ -130,9 +130,9 @@ def compute_prec_recall_f1_acc(conf_matr):
     gt_sum = conf_matr.sum(axis=1)
                 
     diag = np.diag(conf_matr)
-    precision = diag / predicted_sum
-    recall = diag / gt_sum
-    f1 = 2 * (precision * recall) / (precision + recall)
+    precision = diag / predicted_sum.clip(min=1e-5)
+    recall = diag / gt_sum.clip(min=1e-5)
+    f1 = 2 * (precision * recall) / (precision + recall).clip(min=1e-5)
     return precision, recall, f1, accuracy
 
 def initialize_weight(model, seed=None):

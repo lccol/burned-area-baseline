@@ -95,8 +95,8 @@ def ndre1(img, filter_invalid=False):
 
 def bais2(img, filter_invalid=False):
     #(1 - sqrt(B06 * B07 * B8A / B04)) * ((B12 - B8A) / sqrt(B12 + B8A) + 1)
-    sqrt = np.sqrt((img[:, :, 5] * img[:, :, 6] * img[:, :, 8]) / img[:, :, 3])
-    term2 = ((img[:, :, 11] - img[:, :, 8]) / np.sqrt(img[:, :, 11] + img[:, :, 8])) + 1
+    sqrt = np.sqrt((img[:, :, 5] * img[:, :, 6] * img[:, :, 8]) / img[:, :, 3].clip(min=1e-5))
+    term2 = ((img[:, :, 11] - img[:, :, 8]) / np.sqrt(img[:, :, 11] + img[:, :, 8]).clip(min=1e-5)) + 1
     result = (1 - sqrt) * term2
     result = filter_s2_image(result, img[:, :, 12])
     if filter_invalid:
