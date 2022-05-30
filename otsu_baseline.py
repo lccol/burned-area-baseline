@@ -57,7 +57,7 @@ if __name__ == '__main__':
         'mask_filtering': False,
         'only_burnt': True
     }
-    
+    overall_cm = np.zeros((2, 2), dtype=int)
     for fold, items in fold_def.items():
         print(f'Analying fold {fold}')
         print(f'Elements: {items}')
@@ -77,6 +77,7 @@ if __name__ == '__main__':
             
             curr_cm = confusion_matrix(img['mask'].flatten(), binary.flatten())
             cm += curr_cm
+            overall_cm += curr_cm
             
             curr_prec, curr_rec, curr_f1, curr_acc = compute_prec_recall_f1_acc(curr_cm)
             
@@ -106,3 +107,14 @@ if __name__ == '__main__':
         
     df = pd.DataFrame(df_dict)
     print(df)
+    print('_' * 50)
+    print('Mean: ')
+    print(df[['accuracy', 'precision', 'recall', 'fscore']].mean())
+    print('Median: ')
+    print(df[['accuracy', 'precision', 'recall', 'fscore']].median())
+    
+    prec, rec, f1, acc = compute_prec_recall_f1_acc(overall_cm)
+    print(f'Overall Precision: {prec}')
+    print(f'Overall Recall: {rec}')
+    print(f'Overall F1 score: {f1}')
+    print(f'Overall Accuracy: {acc}')
